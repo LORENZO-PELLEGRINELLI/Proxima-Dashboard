@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Zap, Compass, Monitor } from "lucide-react";
-
-//style
-import "./style/App.css";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { Zap, Compass, Monitor, Sun, Moon, Wifi } from "lucide-react";
 
 //components
 import MovementStatus from "./components/organism/MovementStatus";
@@ -24,7 +22,7 @@ function ConnectionStatus({ isConnected }) {
 }
 
 function App() {
-  // Set default mode to "manual"
+  // State variables
   const [robotData, setRobotData] = useState({
     distance: 0,
     irLeft: 1,
@@ -35,9 +33,24 @@ function App() {
   });
   const [controlMode, setControlMode] = useState("manual");
   const [isConnected, setIsConnected] = useState(false);
+  const [theme, setTheme] = useState("dark"); // New state for theme
 
   // Reference for handling repeated keyboard commands
   const commandIntervalRef = useRef(null);
+
+  // Apply theme class to body
+  useEffect(() => {
+    if (theme === "light") {
+      document.body.classList.add("light-theme");
+    } else {
+      document.body.classList.remove("light-theme");
+    }
+  }, [theme]);
+
+  // Toggle theme function
+  const toggleTheme = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
 
   // Fetch robot data every 100ms
   useEffect(() => {
@@ -132,6 +145,75 @@ function App() {
     };
   }, [controlMode]);
 
+  // Render the manual control panel
+  const renderManualControlPanel = () => {
+    if (controlMode !== "manual") return null;
+
+    return (
+      <div className="manual-control-panel">
+        <h2>Manual Control</h2>
+        <div className="control-description">
+          Use the buttons below or arrow keys on your keyboard
+        </div>
+
+        <div className="control-pad">
+          <button
+            className="control-button up-button"
+            onMouseDown={() => sendCommand("forward")}
+            onMouseUp={() => sendCommand("stop")}
+            onTouchStart={() => sendCommand("forward")}
+            onTouchEnd={() => sendCommand("stop")}
+          >
+            ▲
+          </button>
+
+          <div className="middle-row">
+            <button
+              className="control-button left-button"
+              onMouseDown={() => sendCommand("left")}
+              onMouseUp={() => sendCommand("stop")}
+              onTouchStart={() => sendCommand("left")}
+              onTouchEnd={() => sendCommand("stop")}
+            >
+              ◄
+            </button>
+
+            <button
+              className="control-button stop-button"
+              onClick={() => sendCommand("stop")}
+            >
+              ■
+            </button>
+
+            <button
+              className="control-button right-button"
+              onMouseDown={() => sendCommand("right")}
+              onMouseUp={() => sendCommand("stop")}
+              onTouchStart={() => sendCommand("right")}
+              onTouchEnd={() => sendCommand("stop")}
+            >
+              ►
+            </button>
+          </div>
+
+          <button
+            className="control-button down-button"
+            onMouseDown={() => sendCommand("backward")}
+            onMouseUp={() => sendCommand("stop")}
+            onTouchStart={() => sendCommand("backward")}
+            onTouchEnd={() => sendCommand("stop")}
+          >
+            ▼
+          </button>
+        </div>
+
+        <div className="keyboard-hint">
+          You can also use your keyboard arrow keys
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
@@ -140,111 +222,66 @@ function App() {
             <Monitor className="dashboard-icon" />
             <h1>Robot Control Dashboard</h1>
           </div>
-          <ConnectionStatus isConnected={isConnected} />
+          <div className="header-controls">
+            {/* Theme toggle button */}
+            <button
+              className="theme-toggle"
+              onClick={toggleTheme}
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+            <ConnectionStatus isConnected={isConnected} />
+          </div>
         </div>
       </header>
 
       <main className="dashboard-main">
-        <div className="mode-selector">
-          <button
-            className={`mode-button ${
-              controlMode === "autonomous" ? "active" : ""
-            }`}
-            onClick={() => switchMode("autonomous")}
-            disabled={controlMode === "autonomous"}
-          >
-            <Zap className="button-icon" />
-            Autonomous Mode
-          </button>
-          <button
-            className={`mode-button ${
-              controlMode === "manual" ? "active" : ""
-            }`}
-            onClick={() => switchMode("manual")}
-            disabled={controlMode === "manual"}
-          >
-            <Compass className="button-icon" />
-            Manual Mode
-          </button>
-        </div>
-
-        <div className="control-container">
-          <div className="dashboard-grid">
-            <SensorData
-              distance={robotData.distance}
-              irLeft={robotData.irLeft}
-              irRight={robotData.irRight}
-            />
-            <MovementStatus
-              movement={robotData.movement}
-              speed={robotData.speed}
-            />
+        {/* Top row with WiFi status, mode selector, and manual control panel */}
+        <div className="top-controls">
+          {/* WiFi component positioned to the left */}
+          <div className="wifi-status-top">
             <WifiStatus wifiStrength={robotData.wifiStrength} />
           </div>
 
-          {controlMode === "manual" && (
-            <div className="manual-control-panel">
-              <h2>Manual Control</h2>
-              <div className="control-description">
-                Use the buttons below or arrow keys on your keyboard
-              </div>
+          <div className="mode-selector">
+            <button
+              className={`mode-button ${
+                controlMode === "autonomous" ? "active" : ""
+              }`}
+              onClick={() => switchMode("autonomous")}
+              disabled={controlMode === "autonomous"}
+            >
+              <Zap className="button-icon" />
+              Autonomous Mode
+            </button>
+            <button
+              className={`mode-button ${
+                controlMode === "manual" ? "active" : ""
+              }`}
+              onClick={() => switchMode("manual")}
+              disabled={controlMode === "manual"}
+            >
+              <Compass className="button-icon" />
+              Manual Mode
+            </button>
+          </div>
 
-              <div className="control-pad">
-                <button
-                  className="control-button up-button"
-                  onMouseDown={() => sendCommand("forward")}
-                  onMouseUp={() => sendCommand("stop")}
-                  onTouchStart={() => sendCommand("forward")}
-                  onTouchEnd={() => sendCommand("stop")}
-                >
-                  ▲
-                </button>
+          {/* Command console moved to top right */}
+          <div className="top-right-control">{renderManualControlPanel()}</div>
+        </div>
 
-                <div className="middle-row">
-                  <button
-                    className="control-button left-button"
-                    onMouseDown={() => sendCommand("left")}
-                    onMouseUp={() => sendCommand("stop")}
-                    onTouchStart={() => sendCommand("left")}
-                    onTouchEnd={() => sendCommand("stop")}
-                  >
-                    ◄
-                  </button>
-
-                  <button
-                    className="control-button stop-button"
-                    onClick={() => sendCommand("stop")}
-                  >
-                    ■
-                  </button>
-
-                  <button
-                    className="control-button right-button"
-                    onMouseDown={() => sendCommand("right")}
-                    onMouseUp={() => sendCommand("stop")}
-                    onTouchStart={() => sendCommand("right")}
-                    onTouchEnd={() => sendCommand("stop")}
-                  >
-                    ►
-                  </button>
-                </div>
-
-                <button
-                  className="control-button down-button"
-                  onMouseDown={() => sendCommand("backward")}
-                  onMouseUp={() => sendCommand("stop")}
-                  onTouchStart={() => sendCommand("backward")}
-                  onTouchEnd={() => sendCommand("stop")}
-                >
-                  ▼
-                </button>
-              </div>
-
-              <div className="keyboard-hint">
-                You can also use your keyboard arrow keys
-              </div>
-            </div>
-          )}
+        {/* Main components area */}
+        <div className="components-grid">
+          <SensorData
+            distance={robotData.distance}
+            irLeft={robotData.irLeft}
+            irRight={robotData.irRight}
+          />
+          <MovementStatus
+            movement={robotData.movement}
+            speed={robotData.speed}
+          />
         </div>
       </main>
     </div>
