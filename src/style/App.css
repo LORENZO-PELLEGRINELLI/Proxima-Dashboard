@@ -52,6 +52,10 @@ body {
   color: var(--text-color);
   line-height: 1.5;
   transition: background-color 0.3s ease, color 0.3s ease;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
 }
 
 /* Dashboard Container */
@@ -59,6 +63,8 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  width: 100%;
+  max-width: 1400px;
 }
 
 /* Header Styling */
@@ -73,6 +79,7 @@ body {
   display: flex;
   align-items: center;
   padding: 0 2rem;
+  width: 100%;
 }
 
 .light-theme .dashboard-header {
@@ -85,8 +92,6 @@ body {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
 }
 
 .title-section {
@@ -209,9 +214,10 @@ h1 {
 .dashboard-main {
   flex: 1;
   padding: 1.5rem;
-  max-width: 1400px;
-  margin: 0 auto;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Top Controls Row */
@@ -221,6 +227,7 @@ h1 {
   align-items: start;
   margin-bottom: 1.5rem;
   gap: 1rem;
+  width: 100%;
 }
 
 /* Mode Selector */
@@ -230,7 +237,7 @@ h1 {
   background: var(--card-bg);
   padding: 0.75rem;
   border-radius: var(--border-radius);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease;
   justify-self: center;
 }
@@ -257,6 +264,7 @@ h1 {
 
 .mode-button:hover:not(:disabled) {
   background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
 }
 
 .light-theme .mode-button:hover:not(:disabled) {
@@ -266,6 +274,7 @@ h1 {
 .mode-button.active {
   background: var(--accent-color);
   color: white;
+  box-shadow: 0 4px 8px rgba(56, 189, 248, 0.3);
 }
 
 .mode-button:disabled {
@@ -284,6 +293,7 @@ h1 {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem;
   margin-bottom: 1.5rem;
+  width: 100%;
 }
 
 /* Reposition WiFi to top left */
@@ -301,11 +311,21 @@ h1 {
   background: var(--card-bg);
   border-radius: var(--border-radius);
   overflow: hidden;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   height: 100%;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.light-theme .dashboard-card {
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .card-header {
@@ -314,10 +334,12 @@ h1 {
   gap: 0.75rem;
   padding: 1.25rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .light-theme .card-header {
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, 0.02);
 }
 
 .card-icon {
@@ -352,12 +374,16 @@ h1 {
   font-size: 1.75rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
+  background: linear-gradient(to right, var(--accent-color), #60a5fa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .sensor-bar {
-  height: 6px;
+  height: 8px;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
+  border-radius: 4px;
   overflow: hidden;
 }
 
@@ -368,8 +394,9 @@ h1 {
 .sensor-progress {
   height: 100%;
   background: linear-gradient(to right, var(--accent-color), #60a5fa);
-  border-radius: 3px;
+  border-radius: 4px;
   transition: width 0.5s ease;
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
 }
 
 .sensors-grid {
@@ -383,10 +410,22 @@ h1 {
   padding: 1rem;
   border-radius: 8px;
   text-align: center;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.ir-sensor:hover {
+  transform: scale(1.03);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .light-theme .ir-sensor {
   background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.light-theme .ir-sensor:hover {
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .sensor-status {
@@ -401,11 +440,13 @@ h1 {
 .sensor-status.clear {
   background: rgba(16, 185, 129, 0.2);
   color: #34d399;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
 }
 
 .sensor-status.blocked {
   background: rgba(239, 68, 68, 0.2);
   color: #f87171;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
 }
 
 /* Movement Card */
@@ -424,6 +465,10 @@ h1 {
   font-size: 1.5rem;
   font-weight: 600;
   margin-top: 0.5rem;
+  background: linear-gradient(to right, var(--success-color), #34d399);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .status-label {
@@ -446,9 +491,9 @@ h1 {
 }
 
 .speed-bar {
-  height: 8px;
+  height: 10px;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
+  border-radius: 5px;
   overflow: hidden;
 }
 
@@ -459,13 +504,29 @@ h1 {
 .speed-indicator {
   height: 100%;
   background: linear-gradient(to right, #10b981, #34d399);
-  border-radius: 4px;
+  border-radius: 5px;
   transition: width 0.5s ease;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
 }
 
 /* WiFi Card */
 .wifi-info {
   text-align: center;
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: var(--card-padding);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.light-theme .wifi-info {
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.wifi-info:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
 .signal-value {
@@ -473,6 +534,10 @@ h1 {
   font-size: 1.75rem;
   font-weight: 600;
   margin-bottom: 1rem;
+  background: linear-gradient(to right, var(--accent-color), #60a5fa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .signal-meter {
@@ -493,6 +558,7 @@ h1 {
   width: 8px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 2px;
+  transition: all 0.3s ease;
 }
 
 .light-theme .signal-bars .bar {
@@ -517,6 +583,7 @@ h1 {
 
 .signal-bars .bar.active {
   background: linear-gradient(to top, var(--accent-color), #60a5fa);
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
 }
 
 .signal-quality {
@@ -529,16 +596,30 @@ h1 {
   background: var(--card-bg);
   border-radius: var(--border-radius);
   padding: var(--card-padding);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   text-align: center;
   width: 280px;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.manual-control-panel:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.light-theme .manual-control-panel {
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .manual-control-panel h2 {
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
+  background: linear-gradient(to right, var(--accent-color), #60a5fa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .control-description {
@@ -564,7 +645,7 @@ h1 {
 .control-button {
   height: 60px;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   background: rgba(255, 255, 255, 0.05);
   color: var(--text-color);
   font-size: 1.25rem;
@@ -573,14 +654,18 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .light-theme .control-button {
   background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .control-button:hover {
   background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .light-theme .control-button:hover {
@@ -594,10 +679,12 @@ h1 {
 .stop-button {
   background: rgba(239, 68, 68, 0.2);
   color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.2);
 }
 
 .stop-button:hover {
   background: rgba(239, 68, 68, 0.3);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
 }
 
 .keyboard-hint {
