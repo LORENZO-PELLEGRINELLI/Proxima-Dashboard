@@ -1,3 +1,65 @@
+# Dashboard di Controllo per il Robot
+
+Questa repository contiene il codice sorgente per una dashboard realizzata in React con Vite, progettata per controllare e monitorare il robot in tempo reale. La dashboard permette di inviare comandi manuali al robot, visualizzare i dati dei sensori, monitorare lo stato della connessione e passare tra la modalità manuale e quella autonoma.
+
+## Indice
+
+- [Panoramica](#panoramica)
+- [Caratteristiche](#caratteristiche)
+- [Tecnologie Utilizzate](#tecnologie-utilizzate)
+- [Requisiti](#requisiti)
+- [Installazione](#installazione)
+- [Utilizzo](#utilizzo)
+- [Struttura del Codice](#struttura-del-codice)
+- [Contributi](#contributi)
+- [Licenza](#licenza)
+
+## Panoramica
+
+La dashboard di controllo per il robot è un'interfaccia web interattiva che consente di:
+- Monitorare i dati in tempo reale provenienti dai sensori del robot (distanza, stato dei sensori infrarossi, velocità e forza del segnale WiFi).
+- Inviare comandi di movimento (avanti, indietro, sinistra, destra, stop) attraverso pulsanti e comandi da tastiera.
+- Gestire la modalità di controllo, passando dalla modalità manuale a quella autonoma.
+
+## Caratteristiche
+
+- **Visualizzazione in Tempo Reale:**  
+  La dashboard aggiorna i dati del robot ogni 100ms, mostrando informazioni quali la distanza rilevata, lo stato dei sensori IR e la velocità corrente.
+
+- **Controllo Manuale:**  
+  Consente il controllo diretto del robot tramite pulsanti on-screen e supporta i comandi da tastiera (tasti freccia) per inviare comandi di movimento ripetuti.
+
+- **Switch tra Modalità:**  
+  È possibile passare dalla modalità manuale a quella autonoma direttamente dalla dashboard.
+
+- **Tema Scuro/Chiaro:**  
+  Supporta il cambio del tema dell'interfaccia (dark/light) per adattarsi alle preferenze dell'utente.
+
+- **Stato della Connessione:**  
+  Un indicatore visualizza lo stato della connessione tra la dashboard e il robot.
+
+## Tecnologie Utilizzate
+
+- **React** – Libreria JavaScript per la creazione di interfacce utente.
+- **Vite** – Strumento di build rapido e leggero per applicazioni web moderne.
+- **Fetch API** – Per le richieste HTTP verso il robot.
+- **lucide-react** – Icone vettoriali per arricchire l'interfaccia utente.
+
+## Requisiti
+
+- **Node.js** (versione 14 o superiore) e **npm** (o yarn) installati sul sistema.
+- Una rete locale configurata in cui il robot è raggiungibile (ad esempio, tramite l'indirizzo IP `192.168.1.50`).
+
+## Installazione
+
+1. **Clona il repository:**
+
+   ```bash
+   git clone https://github.com/tuo-username/dashboard-robot.git
+   cd dashboard-robot
+
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
