@@ -105,10 +105,10 @@ function App() {
           command = "backward";
           break;
         case "ArrowLeft":
-          command = "left";
+          command = "right";
           break;
         case "ArrowRight":
-          command = "right";
+          command = "left";
           break;
         default:
           return;
