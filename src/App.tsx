@@ -220,7 +220,7 @@ function App() {
         <div className="header-content">
           <div className="title-section">
             <Monitor className="dashboard-icon" />
-            <h1>Robot Control Dashboard</h1>
+            <h1>Proxima Control Dashboard</h1>
           </div>
           <div className="header-controls">
             {/* Theme toggle button */}

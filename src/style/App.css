@@ -44,6 +44,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 body {
@@ -65,6 +67,8 @@ body {
   min-height: 100vh;
   width: 100%;
   max-width: 1400px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 /* Header Styling */
